@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+
+.cursor{
+    cursor: pointer;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600;900&display=swap');
+
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+
+.hideExtra{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.hideExtra2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hideExtra3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+::selection {
+  background-color: #3b3b3b5b;
+
+}

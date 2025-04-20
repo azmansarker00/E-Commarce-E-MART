@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 70">
+  <rect x="5" y="5" width="60" height="60" rx="10" fill="#FF5722"/>
+  <text x="35" y="40" font-family="Arial, sans-serif" font-size="13" fill="#FFFFFF" font-weight="bold" text-anchor="middle">E -MART</text>
+  <circle cx="60" cy="10" r="6" fill="#FFC107"/>
+</svg>
