@@ -59,7 +59,8 @@ function myState(props) {
         }
 
 
-        
+
+
         // setProducts("")
     }
 
@@ -97,6 +98,10 @@ function myState(props) {
         getProductData();
     }, []);
 
+
+
+
+    
     // update product function
 
     const edithandle = (item) => {
