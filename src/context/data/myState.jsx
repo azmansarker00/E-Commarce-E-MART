@@ -57,9 +57,10 @@ function myState(props) {
             console.log(error);
             setLoading(false)
         }
+
+
+        
         // setProducts("")
-
-
     }
 
     const [product, setProduct] = useState([]);
