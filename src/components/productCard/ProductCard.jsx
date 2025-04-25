@@ -23,7 +23,9 @@ function ProductCard() {
 
   const addCart = (product) => {
     dispatch(addToCart(product));
-    toast.success("add to cart");
+    toast.success("Add to cart", {
+      position: "top-center",
+    });
   };
 
   useEffect(() => {
@@ -66,7 +68,7 @@ function ProductCard() {
                       className="flex justify-center cursor-pointer"
                     >
                       <img
-                        className=" rounded-2xl w-full h-55 p-2 hover:scale-110 transition-scale-110  duration-300 ease-in-out"
+                        className=" rounded-2xl w-full h-95 p-3 hover:scale-110 transition-scale-110  duration-300 ease-in-out"
                         src={imageUrl}
                         alt="blog"
                       />

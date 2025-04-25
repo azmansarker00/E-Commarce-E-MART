@@ -10,7 +10,7 @@ import { fireDB } from "../../firebase/FirebaseConfig";
 
 function ProductInfo() {
   const context = useContext(myContext);
-  const { setLoading } = context;
+  const { setLoading, mode} = context;
 
   const [products, setProducts] = useState("");
   const params = useParams();
@@ -40,7 +40,9 @@ function ProductInfo() {
   // add to cart
   const addCart = (products) => {
     dispatch(addToCart(products));
-    toast.success("add to cart");
+    toast.success("Add to cart", {
+        position: "top-center",
+      });
   };
 
   useEffect(() => {
@@ -56,12 +58,14 @@ function ProductInfo() {
               <div className="flex flex-col">
                 <img
                   alt="ecommerce"
-                  className=" w-120 h-120 object-cover object-center rounded border border-gray-200 p-5"
+                  className=" w-120 h-120 object-cover object-center rounded-4xl border border-gray-200 p-10"
                   src={products.imageUrl}
                 />
 
                 <div className="flex justify-around mt-5"> 
-                <span className="title-font font-bold text-2xl text-gray-900 ">
+                <span className="title-font font-bold text-2xl"
+                style={{ color: mode === "dark" ? "white" : "" }}
+                >
                   {products.price} TK
                 </span>
 
@@ -169,20 +173,21 @@ function ProductInfo() {
                 <h2 className="text-sm title-font text-gray-500 tracking-widest">
                   E- MART
                 </h2>
-                <h1 className="text-gray-900 text-xl title-font font-medium mb-1">
+                <h1 className= "text-2xl title-font font-medium mb-1"
+                style={{ color: mode === "dark" ? "white" : "" }}>
                   {products.title}
                 </h1>
 
-                
-
-                <p className="leading-relaxed texl-[12px]border-b-2 mb-5 pb-5">
+                    <span className="text-gray-400 mt-28">Description</span>
+                <p className="leading-relaxed texl-[12px]border-b-2 mb-5 pb-5"
+                style={{ color: mode === "dark" ? "white" : "" }}>
                   {products.description}
                 </p>
 
                 <div className="flex">
                   <button
                     onClick={() => addCart(products)}
-                    className="flex ml-auto text-white bg-orange-500 border-0 cursor py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded"
+                    className="flex ml-auto text-white bg-orange-500 border-0 cursor py-2 px-6 focus:outline-none hover:bg-orange-600 rounded"
                   >
                     Add To Cart
                   </button>
