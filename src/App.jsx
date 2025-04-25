@@ -13,7 +13,7 @@ import ProductInfo from "./pages/productInfo/ProductInfo";
 import AddProduct from "./pages/admin/pages/AddProduct";
 import UpdateProduct from "./pages/admin/pages/UpdateProduct";
 import Allproducts from "./pages/allproducts/AllProducts";
-import Profile from "./pages/profile/profile";
+import Profile from "./pages/profile/profile"
 
 // context
 import MyState from "./context/data/myState";

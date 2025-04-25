@@ -162,7 +162,7 @@ function Navbar() {
               >
                 <Menu.Items className={`absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-2 ${mode === 'dark' ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}>
                   <Menu.Item>
-                    <Link to="/" className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600">Profile</Link>
+                    <Link to="/profile" className="block px-4 py-2 hover:bg-gray-200 dark:hover:bg-gray-600">Profile</Link>
                   </Menu.Item>
                   {user && (
                     <Menu.Item>
