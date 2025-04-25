@@ -16,7 +16,7 @@ function Navbar() {
 
   const logout = () => {
     localStorage.clear('user');
-    window.location.href = '/login';
+    window.location.href = '/';
   };
 
   return (
@@ -54,7 +54,7 @@ function Navbar() {
                 <div className="mt-6 space-y-6">
                   <Link to="/allproducts" className="block text-lg font-medium hover:text-orange-400">All Products</Link>
                   {user && <Link to="/order" className="block text-lg font-medium hover:text-orange-400">Orders</Link>}
-                  {user?.user?.uid === 'pV4TZLK5hXTnYTXlgUlkEJmjYR12' && (
+                  {user?.user?.uid === 'bgp0SgBeH6ZJ3QTRbnS9on13IYZ2' && (
                     <Link to="/dashboard" className="block text-lg font-medium hover:text-orange-400">Admin Dashboard</Link>
                   )}
                   {user ? (
@@ -117,7 +117,7 @@ function Navbar() {
         {/* Menu Links */}
         <div className="hidden lg:flex gap-8 text-lg font-medium">
           <Link to="/allproducts" className="hover:text-orange-400">All Products</Link>
-          {user?.user?.uid === 'pV4TZLK5hXTnYTXlgUlkEJmjYR12' && (
+          {user?.user?.uid === 'bgp0SgBeH6ZJ3QTRbnS9on13IYZ2' && (
             <Link to="/dashboard" className="hover:text-orange-400">Admin</Link>
           )}
         </div>

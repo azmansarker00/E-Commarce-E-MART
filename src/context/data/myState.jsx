@@ -154,7 +154,6 @@ function myState(props) {
                 setLoading(false)
             });
             setOrder(ordersArray);
-            console.log(ordersArray)
             setLoading(false);
         } catch (error) {
             console.log(error)
@@ -165,22 +164,36 @@ function myState(props) {
     const [user, setUser] = useState([]);
 
     const getUserData = async () => {
-        setLoading(true)
+        setLoading(true);
         try {
-            const result = await getDocs(collection(fireDB, "usersInfo"))
+            const result = await getDocs(collection(fireDB, "usersInfo"));
             const usersArray = [];
-            result.forEach((doc) => {
-                usersArray.push(doc.data());
-                setLoading(false)
+            result.forEach((docSnap) => {
+                usersArray.push({ ...docSnap.data(), id: docSnap.id }); // Add document ID
             });
             setUser(usersArray);
-            console.log(usersArray)
             setLoading(false);
         } catch (error) {
-            console.log(error)
-            setLoading(false)
+            console.log(error);
+            setLoading(false);
         }
-    }
+    };
+    
+    //Add updateUser function:
+    const updateUser = async (updatedUser) => {
+        setLoading(true);
+        try {
+            const userRef = doc(fireDB, "usersInfo", updatedUser.id); // id must exist
+            await setDoc(userRef, updatedUser);
+            toast.success("Profile updated successfully!");
+            getUserData();
+            setLoading(false);
+        } catch (error) {
+            console.log("Error updating user:", error);
+            toast.error("Failed to update profile");
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         getOrderData();
@@ -196,7 +209,7 @@ function myState(props) {
             mode, toggleMode, loading, setLoading,
             products, setProducts, addProduct, product,
             edithandle, updateProduct, deleteProduct, order,
-            user, searchkey, setSearchkey,filterType,setFilterType,
+            user, updateUser, searchkey, setSearchkey,filterType,setFilterType,
             filterPrice,setFilterPrice
         }}>
             {props.children}

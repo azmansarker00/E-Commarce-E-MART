@@ -35,7 +35,7 @@ function Order() {
           }
         </div>
       ) : (
-        <h2 className="text-center text-2xl text-white mt-10">No Orders Found</h2>
+        <h2 className="text-center text-3xl text-dark mt-10">No Orders Found</h2>
       )}
     </Layout>
   )
