@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Pencil } from "lucide-react";
+import Layout from "../../components/layout/Layout"
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -27,7 +28,8 @@ const Profile = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-2xl shadow-md mt-10">
+    <Layout>
+        <div className="max-w-2xl mx-auto p-6 bg-white rounded-2xl shadow-md mt-10">
       <div className="flex items-center gap-4 mb-6">
         <img
           src="https://i.pravatar.cc/100"
@@ -64,6 +66,7 @@ const Profile = () => {
         </div>
       ))}
     </div>
+    </Layout>
   );
 };
 
