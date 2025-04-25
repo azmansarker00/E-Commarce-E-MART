@@ -12,6 +12,8 @@ import Signup from "./pages/registration/Signup";
 import ProductInfo from "./pages/productInfo/ProductInfo";
 import AddProduct from "./pages/admin/pages/AddProduct";
 import UpdateProduct from "./pages/admin/pages/UpdateProduct";
+import Allproducts from "./pages/allproducts/AllProducts";
+import Profile from "./pages/profile/profile";
 
 // context
 import MyState from "./context/data/myState";
@@ -19,7 +21,7 @@ import MyState from "./context/data/myState";
 // rect-tostify
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-import Allproducts from "./pages/allproducts/AllProducts";
+
 
 const App = () => {
   return (
@@ -63,6 +65,7 @@ const App = () => {
           }
         />
         <Route path="/allproducts" element={<Allproducts />}></Route>
+        <Route path="/profile" element={<Profile />}></Route>
         <Route path="/*" element={<NoPage />} />
       </Routes>
       <ToastContainer />
