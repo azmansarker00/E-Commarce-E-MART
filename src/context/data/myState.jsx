@@ -183,17 +183,19 @@ function myState(props) {
     const updateUser = async (updatedUser) => {
         setLoading(true);
         try {
-            const userRef = doc(fireDB, "usersInfo", updatedUser.id); // id must exist
+            const userRef = doc(fireDB, "usersInfo", updatedUser.id);
             await setDoc(userRef, updatedUser);
             toast.success("Profile updated successfully!");
             getUserData();
             setLoading(false);
         } catch (error) {
-            console.log("Error updating user:", error);
             toast.error("Failed to update profile");
             setLoading(false);
         }
     };
+
+
+    
 
     useEffect(() => {
         getOrderData();

@@ -4,7 +4,7 @@ import Layout from '../../components/layout/Layout';
 
 const Profile = () => {
   const { user, updateUser } = useContext(myContext);
-  const currentUser = user[0]; // You may later use UID to identify the logged-in user
+  const currentUser = user[0]; 
 
   const [editField, setEditField] = useState(null);
   const [formData, setFormData] = useState({
@@ -47,13 +47,16 @@ const Profile = () => {
     setEditField(null);
   };
 
+  console.log("Current User: ", currentUser);
+
+
   return (
     <Layout>
       <div className="min-h-screen flex justify-center items-center bg-gray-900 text-white px-4">
         <div className="bg-gray-800 p-6 rounded-xl w-full max-w-md space-y-4">
           <div className="text-center">
             <img
-              src="https://www.w3schools.com/howto/img_avatar.png"
+              src={currentUser?.logo || "https://via.placeholder.com/150"}
               alt="Profile"
               className="w-24 h-24 rounded-full mx-auto mb-4"
             />

@@ -37,6 +37,7 @@ function Signup() {
           const users = await createUserWithEmailAndPassword(auth, email, password)
       
           const user = {
+            logo: `https://ui-avatars.com/api/?name=${name}&background=random`,
             name: name,
             number: number,
             uid: users.user.uid,

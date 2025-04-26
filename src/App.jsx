@@ -13,7 +13,8 @@ import ProductInfo from "./pages/productInfo/ProductInfo";
 import AddProduct from "./pages/admin/pages/AddProduct";
 import UpdateProduct from "./pages/admin/pages/UpdateProduct";
 import Allproducts from "./pages/allproducts/AllProducts";
-import Profile from "./pages/profile/profile"
+import Profile from "./pages/profile/profile";
+import User from "./pages/UserInfo/user";
 
 // context
 import MyState from "./context/data/myState";
@@ -21,7 +22,6 @@ import MyState from "./context/data/myState";
 // rect-tostify
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
-
 
 const App = () => {
   return (
@@ -65,7 +65,22 @@ const App = () => {
           }
         />
         <Route path="/allproducts" element={<Allproducts />}></Route>
-        <Route path="/profile" element={<Profile />}></Route>
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoutes>
+              <Profile />
+            </ProtectedRoutes>
+          }
+        ></Route>
+        <Route
+          path="/userdetails/:id"
+          element={
+            <ProtectedRoutesForAdmin>
+              <User />
+            </ProtectedRoutesForAdmin>
+          }
+        ></Route>
         <Route path="/*" element={<NoPage />} />
       </Routes>
       <ToastContainer />
