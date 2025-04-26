@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { useParams, useNavigate } from "react-router-dom";
+import { doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { fireDB } from "../../firebase/FirebaseConfig";
 
-const UserDetails = () => {
+const UserDetails = ({ currentUserId }) => {
   const { id } = useParams();
   const [user, setUser] = useState(null);
+  const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
+  const [isDisableUser, setIsDisableUser] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -13,7 +16,8 @@ const UserDetails = () => {
       const userSnap = await getDoc(userRef);
 
       if (userSnap.exists()) {
-        setUser(userSnap.data());
+        setUser({ ...userSnap.data(), id: userSnap.id });
+        setIsDisableUser(userSnap.data().status === "disabled");
       } else {
         console.log("No such user!");
       }
@@ -21,6 +25,49 @@ const UserDetails = () => {
 
     fetchUser();
   }, [id]);
+
+  // Delete user function with confirmation
+  const handleDeleteUser = async () => {
+    const userRef = doc(fireDB, "usersInfo", id);
+    await deleteDoc(userRef);
+    alert("User deleted successfully");
+    navigate("/users"); // Redirect to users list page
+  };
+
+  // Toggle user disable/enable
+  const handleDisableUser = async () => {
+    const userRef = doc(fireDB, "usersInfo", id);
+    const newStatus = isDisableUser ? "enabled" : "disabled";
+
+    await updateDoc(userRef, {
+      status: newStatus,
+    });
+    setIsDisableUser(!isDisableUser);
+    alert(`User ${newStatus} successfully`);
+  };
+
+  // Prevent the admin from deleting or disabling themselves
+  const handleAdminAction = (action) => {
+    if (id === currentUserId) {
+      alert("You cannot delete or disable yourself.");
+      return;
+    }
+
+    if (action === "delete") {
+      setIsConfirmDeleteOpen(true);
+    } else if (action === "disable") {
+      handleDisableUser();
+    }
+  };
+
+  const handleConfirmDelete = () => {
+    handleDeleteUser();
+    setIsConfirmDeleteOpen(false);
+  };
+
+  const handleCancelDelete = () => {
+    setIsConfirmDeleteOpen(false);
+  };
 
   if (!user) {
     return (
@@ -60,7 +107,7 @@ const UserDetails = () => {
           {user.createdAt && (
             <DetailItem
               label="Account Created"
-              value={user.time.toDate().toLocaleString("en-US", {
+              value={user.createdAt.toDate().toLocaleString("en-US", {
                 month: "short",
                 day: "2-digit",
                 year: "numeric",
@@ -68,6 +115,49 @@ const UserDetails = () => {
             />
           )}
         </div>
+
+        {/* Action Buttons */}
+        <div className="mt-6 flex justify-between">
+          <button
+            onClick={() => handleAdminAction("delete")}
+            className="bg-red-600 text-white px-4 py-2 rounded-xl"
+          >
+            Delete User
+          </button>
+          <button
+            onClick={() => handleAdminAction("disable")}
+            className={`${
+              isDisableUser ? "bg-green-600" : "bg-yellow-600"
+            } text-white px-4 py-2 rounded-xl`}
+          >
+            {isDisableUser ? "Enable User" : "Disable User"}
+          </button>
+        </div>
+
+        {/* Confirmation Modal for Delete */}
+        {isConfirmDeleteOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div className="bg-white p-6 rounded-xl">
+              <h3 className="text-xl font-semibold mb-4">
+                Are you sure you want to delete this user?
+              </h3>
+              <div className="flex space-x-4">
+                <button
+                  onClick={handleConfirmDelete}
+                  className="bg-red-600 text-white px-4 py-2 rounded-xl"
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={handleCancelDelete}
+                  className="bg-gray-600 text-white px-4 py-2 rounded-xl"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

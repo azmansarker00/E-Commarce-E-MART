@@ -245,6 +245,7 @@ function myState(props) {
         setFilterType,
         filterPrice,
         setFilterPrice,
+        
       }}
     >
       {props.children}
