@@ -48,7 +48,7 @@ const UserDetails = ({ currentUserId }) => {
 
   // Prevent the admin from deleting or disabling themselves
   const handleAdminAction = (action) => {
-    if (id === currentUserId) {
+    if (id === "KV9OrwuZJWbvzUzia6YnHV6fBQL2") {
       alert("You cannot delete or disable yourself.");
       return;
     }

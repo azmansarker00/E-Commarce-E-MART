@@ -50,7 +50,7 @@ function Navbar() {
                 <div className="mt-6 space-y-6">
                   <Link to="/allproducts" className="block text-lg font-medium hover:text-orange-400">All Products</Link>
                   {user && <Link to="/order" className="block text-lg font-medium hover:text-orange-400">Orders</Link>}
-                  {user?.user?.uid === 'HIAhemWgiuMJbDflbHsofpH6CU03' && (
+                  {user?.user?.uid === 'HQa0SbPtCbQt7TfbC9rCkoJ1muo1' && (
                     <Link to="/dashboard" className="block text-lg font-medium hover:text-orange-400">Admin Dashboard</Link>
                   )}
                   {user ? (
@@ -113,7 +113,7 @@ function Navbar() {
         {/* Menu Links */}
         <div className="hidden lg:flex gap-8 text-lg font-medium">
           <Link to="/allproducts" className="hover:text-orange-400">All Products</Link>
-          {user?.user?.uid === 'HIAhemWgiuMJbDflbHsofpH6CU03' && (
+          {user?.user?.uid === 'HQa0SbPtCbQt7TfbC9rCkoJ1muo1' && (
             <Link to="/dashboard" className="hover:text-orange-400">Admin</Link>
           )}
         </div>
