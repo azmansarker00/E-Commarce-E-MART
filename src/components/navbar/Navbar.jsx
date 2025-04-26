@@ -9,15 +9,11 @@ import { useSelector } from 'react-redux';
 
 function Navbar() {
   const context = useContext(myContext);
-  const { mode, toggleMode } = context;
+  const { mode, toggleMode, logout} = context;
   const [open, setOpen] = useState(false);
   const cartItems = useSelector((state) => state.cart);
   const user = JSON.parse(localStorage.getItem('user'));
 
-  const logout = () => {
-    localStorage.clear('user');
-    window.location.href = '/';
-  };
 
   return (
     <div className={`sticky top-0 z-50 ${mode === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
@@ -54,7 +50,7 @@ function Navbar() {
                 <div className="mt-6 space-y-6">
                   <Link to="/allproducts" className="block text-lg font-medium hover:text-orange-400">All Products</Link>
                   {user && <Link to="/order" className="block text-lg font-medium hover:text-orange-400">Orders</Link>}
-                  {user?.user?.uid === 'bgp0SgBeH6ZJ3QTRbnS9on13IYZ2' && (
+                  {user?.user?.uid === 'HIAhemWgiuMJbDflbHsofpH6CU03' && (
                     <Link to="/dashboard" className="block text-lg font-medium hover:text-orange-400">Admin Dashboard</Link>
                   )}
                   {user ? (
@@ -117,7 +113,7 @@ function Navbar() {
         {/* Menu Links */}
         <div className="hidden lg:flex gap-8 text-lg font-medium">
           <Link to="/allproducts" className="hover:text-orange-400">All Products</Link>
-          {user?.user?.uid === 'bgp0SgBeH6ZJ3QTRbnS9on13IYZ2' && (
+          {user?.user?.uid === 'HIAhemWgiuMJbDflbHsofpH6CU03' && (
             <Link to="/dashboard" className="hover:text-orange-400">Admin</Link>
           )}
         </div>

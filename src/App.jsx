@@ -100,7 +100,7 @@ export const ProtectedRoutes = ({ children }) => {
 
 export const ProtectedRoutesForAdmin = ({ children }) => {
   const admin = JSON.parse(localStorage.getItem("user"));
-  if (admin.user.uid === "bgp0SgBeH6ZJ3QTRbnS9on13IYZ2") {
+  if (admin.user.uid === "HIAhemWgiuMJbDflbHsofpH6CU03") {
     return children;
   } else {
     return <Navigate to="/login" />;
