@@ -132,6 +132,14 @@ function myState(props) {
     }
   };
 
+  const fetchProducts = async () => {
+    const productsCollection = collection(db, "products");
+    const snapshot = await getDocs(productsCollection);
+    const productsList = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    setProducts(productsList);
+  };
+  
+
   // --------------------- Order State ---------------------
   const [order, setOrder] = useState([]);
 
@@ -235,6 +243,7 @@ function myState(props) {
         edithandle,
         updateProduct,
         deleteProduct,
+        fetchProducts,
         order,
         user,
         updateUser,

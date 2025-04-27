@@ -30,6 +30,7 @@ function ProductCard() {
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
   }, [cartItems]);
+
   return (
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-8 md:py-16 mx-auto">
@@ -50,7 +51,7 @@ function ProductCard() {
             .filter((obj) => obj.price.includes(filterPrice))
             .slice(0, 8)
             .map((item, index) => {
-              const { title, price, imageUrl, id } = item;
+              const { title, price, imageUrl, id, averageRating, ratingCount } = item;
               return (
                 <div key={index} className="p-4 md:w-1/4  drop-shadow-lg ">
                   <div
@@ -91,6 +92,26 @@ function ProductCard() {
                       >
                         {price} TK
                       </p>
+                      {/* Display product rating */}
+                      <div className="flex items-center mb-3">
+                        {Array.from({ length: 5 }).map((_, index) => (
+                          <svg
+                            key={index}
+                            fill={index < averageRating ? "currentColor" : "none"}
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            className="w-4 h-4 text-orange-500"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                          </svg>
+                        ))}
+                        <span className="text-gray-600 ml-2">
+                          {ratingCount} Reviews
+                        </span>
+                      </div>
                       <div className=" flex justify-center">
                         <button
                           type="button"
@@ -98,6 +119,17 @@ function ProductCard() {
                           className="focus:outline-none text-white bg-orange-400 hover:bg-orange-500 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full cursor py-2"
                         >
                           Add To Cart
+                        </button>
+                      </div>
+                      {/* Add More button */}
+                      <div className="flex justify-center mt-2">
+                        <button
+                          onClick={() =>
+                            (window.location.href = `/productinfo/${id}`)
+                          }
+                          className="focus:outline-none text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full cursor py-2"
+                        >
+                          Full View
                         </button>
                       </div>
                     </div>

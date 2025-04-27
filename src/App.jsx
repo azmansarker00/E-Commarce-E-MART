@@ -19,9 +19,12 @@ import User from "./pages/UserInfo/user";
 // context
 import MyState from "./context/data/myState";
 
-// rect-tostify
+// toastify
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+
+// components
+import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton";
 
 const App = () => {
   return (
@@ -64,7 +67,7 @@ const App = () => {
             </ProtectedRoutesForAdmin>
           }
         />
-        <Route path="/allproducts" element={<Allproducts />}></Route>
+        <Route path="/allproducts" element={<Allproducts />} />
         <Route
           path="/profile"
           element={
@@ -72,7 +75,7 @@ const App = () => {
               <Profile />
             </ProtectedRoutes>
           }
-        ></Route>
+        />
         <Route
           path="/userdetails/:id"
           element={
@@ -80,9 +83,13 @@ const App = () => {
               <User />
             </ProtectedRoutesForAdmin>
           }
-        ></Route>
+        />
         <Route path="/*" element={<NoPage />} />
       </Routes>
+      
+      {/* extra */}
+      <ScrollToTopButton />
+
       <ToastContainer />
     </MyState>
   );
@@ -90,6 +97,7 @@ const App = () => {
 
 export default App;
 
+// Your Protected Routes
 export const ProtectedRoutes = ({ children }) => {
   if (localStorage.getItem("user")) {
     return children;
