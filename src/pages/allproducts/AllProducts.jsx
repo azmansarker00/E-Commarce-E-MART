@@ -119,15 +119,26 @@ function ProductCard() {
                           </span>
                         </div>
 
-                        {/* Add to Cart Button */}
-                        <div className="flex justify-center">
-                          <button
-                            onClick={() => addCart(item)}
-                            className="text-white bg-orange-400 border-0 py-2 px-6 focus:outline-none hover:bg-orange-500 rounded text-lg"
-                          >
-                            Add to Cart
-                          </button>
-                        </div>
+                        <div className=" flex justify-center">
+                        <button
+                          type="button"
+                          onClick={() => addCart(item)}
+                          className="focus:outline-none text-white bg-orange-400 hover:bg-orange-500 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full cursor py-2"
+                        >
+                          Add To Cart
+                        </button>
+                      </div>
+                      {/* Add More button */}
+                      <div className="flex justify-center mt-2">
+                        <button
+                          onClick={() =>
+                            (window.location.href = `/productinfo/${id}`)
+                          }
+                          className="focus:outline-none text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full cursor py-2"
+                        >
+                          View
+                        </button>
+                      </div>
                       </div>
                     </div>
                   </div>
