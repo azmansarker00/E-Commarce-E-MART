@@ -6,14 +6,14 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   onSnapshot,
   orderBy,
   query,
   setDoc,
-  where,
 } from "firebase/firestore";
-import { onAuthStateChanged, signOut } from "firebase/auth"; // <-- Import onAuthStateChanged & signOut
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import { fireDB, auth } from "../../firebase/FirebaseConfig";
 
@@ -132,13 +132,42 @@ function myState(props) {
     }
   };
 
-  const fetchProducts = async () => {
-    const productsCollection = collection(db, "products");
-    const snapshot = await getDocs(productsCollection);
-    const productsList = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    setProducts(productsList);
+  // --------------------- Submit Review (rating system) ---------------------
+  const submitReview = async (productId, newRating) => {
+    setLoading(true);
+    try {
+      const productRef = doc(fireDB, "products", productId);
+      const productSnap = await getDoc(productRef);
+
+      if (!productSnap.exists()) {
+        toast.error("Product not found!");
+        setLoading(false);
+        return;
+      }
+
+      const productData = productSnap.data();
+      const currentRating = productData.rating || 0;
+      const totalRatings = productData.totalRatings || 0;
+
+      const updatedTotalRatings = totalRatings + 1;
+      const updatedRating =
+        (currentRating * totalRatings + newRating) / updatedTotalRatings;
+
+      await setDoc(productRef, {
+        ...productData,
+        rating: updatedRating,
+        totalRatings: updatedTotalRatings,
+      });
+
+      toast.success("Thanks for your feedback!");
+      getProductData();
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      toast.error("Failed to submit review");
+      setLoading(false);
+    }
   };
-  
 
   // --------------------- Order State ---------------------
   const [order, setOrder] = useState([]);
@@ -167,20 +196,19 @@ function myState(props) {
     try {
       const q = query(collection(fireDB, "usersInfo"));
       const result = await getDocs(q);
-  
+
       const usersArray = [];
       result.forEach((docSnap) => {
         usersArray.push({ ...docSnap.data(), id: docSnap.id });
       });
-  
-      setUser(usersArray);  
+
+      setUser(usersArray);
       setLoading(false);
     } catch (error) {
       console.log(error);
       setLoading(false);
     }
   };
-  
 
   const updateUser = async (updatedUser) => {
     setLoading(true);
@@ -188,7 +216,7 @@ function myState(props) {
       const userRef = doc(fireDB, "usersInfo", updatedUser.id);
       await setDoc(userRef, updatedUser);
       toast.success("Profile updated successfully!");
-      getUserData(updatedUser.email); // after update reload data
+      getUserData();
       setLoading(false);
     } catch (error) {
       toast.error("Failed to update profile");
@@ -200,15 +228,15 @@ function myState(props) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        getUserData(currentUser.email);
+        getUserData();
       } else {
-        setUser([]); // user logout hole empty kore dibo
+        setUser([]);
       }
     });
 
-    getOrderData(); // order data load korbo always
+    getOrderData();
 
-    return () => unsubscribe(); // cleanup
+    return () => unsubscribe();
   }, []);
 
   // --------------------- Logout Function ---------------------
@@ -240,21 +268,20 @@ function myState(props) {
         setProducts,
         addProduct,
         product,
+        submitReview,
         edithandle,
         updateProduct,
         deleteProduct,
-        fetchProducts,
         order,
         user,
         updateUser,
-        logout, 
+        logout,
         searchkey,
         setSearchkey,
         filterType,
         setFilterType,
         filterPrice,
         setFilterPrice,
-        
       }}
     >
       {props.children}

@@ -68,7 +68,7 @@ function ProductCard() {
                       className="flex justify-center cursor-pointer"
                     >
                       <img
-                        className=" rounded-2xl w-full h-90 p-3 hover:scale-110 transition-scale-110  duration-300 ease-in-out"
+                        className=" rounded-2xl w-full h-86 p-3 hover:scale-110 transition-scale-110  duration-300 ease-in-out"
                         src={imageUrl}
                         alt="blog"
                       />
@@ -129,7 +129,7 @@ function ProductCard() {
                           }
                           className="focus:outline-none text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full cursor py-2"
                         >
-                          Full View
+                          View
                         </button>
                       </div>
                     </div>
