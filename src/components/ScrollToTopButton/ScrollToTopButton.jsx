@@ -31,7 +31,7 @@ const ScrollToTopButton = () => {
           onClick={scrollToTop}
           className="fixed bottom-6 right-6 p-3 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition"
         >
-          ↑ Top
+          <img src="https://cdn-icons-png.flaticon.com/128/4196/4196777.png" alt="TOP" title="TOP" className="w-8"/>
         </button>
       )}
     </>

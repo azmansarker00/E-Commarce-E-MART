@@ -16,7 +16,7 @@ const Home = () => {
         <HeroSection />
         <Filter />
         <ProductCard />
-         <Link to={"/allproducts"} className="flex justify-center items-center text-xl mb-10 "
+         <Link to={"/allproducts"} className="flex justify-center items-center text-md  "
          style={{ color: mode === "dark" ? "white" : "" }}>more products...</Link>
         <Track />
         <Testimonial />

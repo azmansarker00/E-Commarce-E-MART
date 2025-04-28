@@ -46,10 +46,34 @@ function ProductCard() {
           </div>
 
           <div className="flex flex-wrap -m-4">
-            {product
-              .filter((obj) => obj.title.toLowerCase().includes(searchkey.toLowerCase()))
-              .filter((obj) => obj.category.toLowerCase().includes(filterType.toLowerCase()))
-              .filter((obj) => (filterPrice ? obj.price <= filterPrice : true))
+          {product
+              .filter((obj) =>
+                obj.title.toLowerCase().includes(searchkey.toLowerCase())
+              )
+              .filter((obj) =>
+                obj.category.toLowerCase().includes(filterType.toLowerCase())
+              )
+              .filter((obj) => {
+                if (filterPrice) {
+                  const priceRange = filterPrice.split("-");
+                  const minPrice = parseInt(priceRange[0]);
+                  const maxPrice =
+                    priceRange[1] === "+" ? Infinity : parseInt(priceRange[1]);
+
+                  return obj.price >= minPrice && obj.price <= maxPrice;
+                }
+                return true;
+              })
+              .sort((a, b) => {
+                if (a.price && b.price) {
+                  if (filterPrice === "htl") {
+                    return b.price - a.price;
+                  } else if (filterPrice === "lth") {
+                    return a.price - b.price;
+                  }
+                }
+                return 0;
+              })
               .slice(0, 8) 
               .map((item, index) => {
                 const { title, price, imageUrl, id, rating = 0, totalRatings = 0 } = item;

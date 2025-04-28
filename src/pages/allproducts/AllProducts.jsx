@@ -50,11 +50,42 @@ function ProductCard() {
 
           <div className="flex flex-wrap -m-4">
             {product
-              .filter((obj) => obj.title.toLowerCase().includes(searchkey.toLowerCase()))
-              .filter((obj) => obj.category.toLowerCase().includes(filterType.toLowerCase()))
-              .filter((obj) => (filterPrice ? obj.price <= filterPrice : true))
+              .filter((obj) =>
+                obj.title.toLowerCase().includes(searchkey.toLowerCase())
+              )
+              .filter((obj) =>
+                obj.category.toLowerCase().includes(filterType.toLowerCase())
+              )
+              .filter((obj) => {
+                if (filterPrice) {
+                  const priceRange = filterPrice.split("-");
+                  const minPrice = parseInt(priceRange[0]);
+                  const maxPrice =
+                    priceRange[1] === "+" ? Infinity : parseInt(priceRange[1]);
+
+                  return obj.price >= minPrice && obj.price <= maxPrice;
+                }
+                return true;
+              })
+              .sort((a, b) => {
+                if (a.price && b.price) {
+                  if (filterPrice === "htl") {
+                    return b.price - a.price;
+                  } else if (filterPrice === "lth") {
+                    return a.price - b.price;
+                  }
+                }
+                return 0;
+              })
               .map((item, index) => {
-                const { title, price, imageUrl, id, rating = 0, totalRatings = 0 } = item;
+                const {
+                  title,
+                  price,
+                  imageUrl,
+                  id,
+                  rating = 0,
+                  totalRatings = 0,
+                } = item;
                 return (
                   <div key={index} className="p-4 md:w-1/4 drop-shadow-lg">
                     <div
@@ -104,41 +135,48 @@ function ProductCard() {
                               <svg
                                 key={idx}
                                 xmlns="http://www.w3.org/2000/svg"
-                                fill={ratingValue <= Math.round(rating) ? "currentColor" : "none"}
+                                fill={
+                                  ratingValue <= Math.round(rating)
+                                    ? "currentColor"
+                                    : "none"
+                                }
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
                                 strokeWidth="2"
                                 className="w-5 h-5 text-orange-400"
                               >
-                               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                               </svg>
                             );
                           })}
-                          <span className="text-gray-600 ml-2" style={{ color: mode === "dark" ? "white" : "" }}>
+                          <span
+                            className="text-gray-600 ml-2"
+                            style={{ color: mode === "dark" ? "white" : "" }}
+                          >
                             ({totalRatings} Reviews)
                           </span>
                         </div>
 
                         <div className=" flex justify-center">
-                        <button
-                          type="button"
-                          onClick={() => addCart(item)}
-                          className="focus:outline-none text-white bg-orange-400 hover:bg-orange-500 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full cursor py-2"
-                        >
-                          Add To Cart
-                        </button>
-                      </div>
-                      {/* Add More button */}
-                      <div className="flex justify-center mt-2">
-                        <button
-                          onClick={() =>
-                            (window.location.href = `/productinfo/${id}`)
-                          }
-                          className="focus:outline-none text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full cursor py-2"
-                        >
-                          View
-                        </button>
-                      </div>
+                          <button
+                            type="button"
+                            onClick={() => addCart(item)}
+                            className="focus:outline-none text-white bg-orange-400 hover:bg-orange-500 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm w-full cursor py-2"
+                          >
+                            Add To Cart
+                          </button>
+                        </div>
+                        {/* Add More button */}
+                        <div className="flex justify-center mt-2">
+                          <button
+                            onClick={() =>
+                              (window.location.href = `/productinfo/${id}`)
+                            }
+                            className="focus:outline-none text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm w-full cursor py-2"
+                          >
+                            View
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
