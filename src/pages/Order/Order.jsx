@@ -8,7 +8,6 @@ function Order() {
   const context = useContext(myContext);
   const { mode, loading, order, submitReview } = context;
 
-  // Filter orders for current user
   const userOrders = order.filter(item => item.userid === userid);
 
   return (
