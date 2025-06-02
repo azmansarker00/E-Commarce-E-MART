@@ -101,7 +101,8 @@ export default App;
 export const ProtectedRoutes = ({ children }) => {
   if (localStorage.getItem("user")) {
     return children;
-  } else {
+  }
+  else {
     return <Navigate to="/login" />;
   }
 };

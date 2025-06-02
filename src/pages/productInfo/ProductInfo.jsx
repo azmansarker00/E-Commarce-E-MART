@@ -6,8 +6,6 @@ import { useParams } from "react-router";
 import { doc, getDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { fireDB } from "../../firebase/FirebaseConfig";
-// Import the addToCart action creator
-import { addToCart } from "../../redux/cartSlice";
 
 function ProductInfo() {
   const context = useContext(myContext);
@@ -76,7 +74,11 @@ function ProductInfo() {
                           <svg
                             key={idx}
                             xmlns="http://www.w3.org/2000/svg"
-                            fill={ratingValue <= Math.round(products.rating) ? "currentColor" : "none"}
+                            fill={
+                              ratingValue <= Math.round(products.rating)
+                                ? "currentColor"
+                                : "none"
+                            }
                             viewBox="0 0 24 24"
                             stroke="currentColor"
                             strokeWidth="2"
@@ -86,7 +88,10 @@ function ProductInfo() {
                           </svg>
                         );
                       })}
-                      <span className="text-gray-600 ml-2" style={{ color: mode === "dark" ? "white" : "" }}>
+                      <span
+                        className="text-gray-600 ml-2"
+                        style={{ color: mode === "dark" ? "white" : "" }}
+                      >
                         ({products.totalRatings} Reviews)
                       </span>
                     </span>
